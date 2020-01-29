@@ -1,0 +1,8 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape android:shape="rectangle" >
+        <solid android:color="@android:color/transparent"/>
+    </shape>
+</item>
+<item android:id="@+id/layer_border" android:drawable="@drawable/borders"/>
+</layer-list>

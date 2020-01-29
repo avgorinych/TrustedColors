@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Trusted Color</string>
+    <string name="colorCorrectionTip">Фото отображается с применением Ваших настроек коррекции</string>
+    <string name="instructionsTip">Возьмите в руку карточку с цветовым шаблоном Trusted color ® Далее Вам потребуется расположить шаблон в зоне съемки. Фото будет произведено по касанию.</string>
+    <string name="colorProbeOf">из</string>
+    <string name="textNext">Далее</string>
+    <string name="loadingWaiting">Загрузка, подождите…</string>
+    <string name="deviceNoCamera">Ваше устройство не поддерживает съемку!</string>
+    <string name="calibrationInstructions">Возьмите в руку карточку с цветовым шаблоном Trusted color ® Далее Вам понадобится выбрать 8 цветов, которые максимально соответствуют секторам на карточке</string>
+    <string name="processIt">Обработать</string>
+    <string name="makeFoto">Сделать фото</string>
+    <string name="nowBegin">Приступить</string>
+</resources>

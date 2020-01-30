@@ -296,9 +296,12 @@ public class CameraImagingView extends AppCompatActivity {
                         if (height > width)
                             maxsize = height;
 
-                        Bitmap correctedBitmap = ImageUtils.CorrectImageColor(getBitMapFromFile(maxsize), (int)fromjson.rgb.red, (int)fromjson.rgb.green, (int)fromjson.rgb.blue, true);
-                        Bitmap correctedBitmapNext = ImageUtils.CorrectImageColor(correctedBitmap, userData.rgb[StaticSettings.RED], userData.rgb[StaticSettings.GREEN], userData.rgb[StaticSettings.BLUE], true);
-                        imageView2.setImageBitmap(correctedBitmapNext);
+                        int amendmentR = (int)fromjson.rgb.red + userData.rgb[StaticSettings.RED];
+                        int amendmentG = (int)fromjson.rgb.green + userData.rgb[StaticSettings.GREEN];
+                        int amendmentB = (int)fromjson.rgb.blue + userData.rgb[StaticSettings.BLUE];
+
+                        Bitmap correctedBitmap = ImageUtils.CorrectImageColor(getBitMapFromFile(maxsize), amendmentR, amendmentG, amendmentB, true);
+                        imageView2.setImageBitmap(correctedBitmap);
 
                         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                         if (!storageDir.exists()) {
@@ -308,7 +311,7 @@ public class CameraImagingView extends AppCompatActivity {
                         String imageFileName = "Corrected_" + timeStamp + "_";
                         File image = File.createTempFile(imageFileName,".jpeg", storageDir);
                         FileOutputStream fos = new FileOutputStream(image);
-                        correctedBitmapNext.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                        correctedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 
                         galleryAddPic(image);
                         writeExif(image, (int)fromjson.rgb.red, (int)fromjson.rgb.green, (int)fromjson.rgb.blue);

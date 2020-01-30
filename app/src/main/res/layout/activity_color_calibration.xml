@@ -12,30 +12,20 @@
 
         <TextView
             android:id="@+id/textViewStepNum"
-            android:layout_width="10px"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:text="1" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="10px"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:text="@string/colorProbeOf" />
-
-        <TextView
-            android:id="@+id/textViewStepsCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:text="8" />
+            android:layout_marginStart="8dp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:text="1" />
 
         <Button
             android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="0"
             android:background="@drawable/vertical_gradient_grey"
             android:text="@string/textNext"
             android:textAllCaps="false" />

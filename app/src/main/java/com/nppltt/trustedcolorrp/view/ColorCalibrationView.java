@@ -29,7 +29,6 @@ public class ColorCalibrationView extends AppCompatActivity {
     private Button nextButton;
     private ImageView colorPanel;
     private TextView textNumStep;
-    private TextView textColorsCount;
     private int colorsCount;
     private int iterationCount;
     private TextView textRed;
@@ -51,7 +50,6 @@ public class ColorCalibrationView extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         colorPanel = findViewById(R.id.coloredPanel);
         textNumStep = findViewById(R.id.textViewStepNum);
-        textColorsCount = findViewById(R.id.textViewStepsCount);
         textRed = findViewById(R.id.textRed);
         textGreen = findViewById(R.id.textGreen);
         textBlue = findViewById(R.id.textBlue);
@@ -62,8 +60,7 @@ public class ColorCalibrationView extends AppCompatActivity {
         nextButton.setOnClickListener(onClickNextButton);
 
         iterationCount = 0;
-        textNumStep.setText("1");
-        textColorsCount.setText(Integer.toString(colorsCount));
+        textNumStep.setText(String.format("1 %s %s", getString(R.string.colorProbeOf), Integer.toString(colorsCount)));
         setColorImage(iterationCount);
         setColorToColorPicker(colors[0]);
     }
@@ -83,7 +80,7 @@ public class ColorCalibrationView extends AppCompatActivity {
 
             iterationCount++;
             if (iterationCount < colorsCount) {
-                textNumStep.setText(Integer.toString(iterationCount + 1));
+                textNumStep.setText(String.format("%s %s %s", Integer.toString(iterationCount + 1), getString(R.string.colorProbeOf), Integer.toString(colorsCount)));
                 setColorImage(iterationCount);
                 setColorToColorPicker(colors[iterationCount]);
             }

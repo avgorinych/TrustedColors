@@ -22,7 +22,7 @@ public class FileManager {
 		fos.close();
 	}
 
-	public <T> T loadData(Activity activity,  Class<T> classOfT, String fileName) throws Exception {
+	public <T> T loadData(Activity activity, Class<T> classOfT, String fileName) throws Exception {
 
 		FileInputStream inputStream = activity.openFileInput(fileName);
 		BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));

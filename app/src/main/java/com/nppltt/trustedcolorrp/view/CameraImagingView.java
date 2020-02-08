@@ -16,9 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
+
 import com.google.gson.Gson;
 import com.nppltt.trustedcolorrp.R;
 import com.nppltt.trustedcolorrp.UserData;
@@ -29,12 +31,14 @@ import com.nppltt.trustedcolorrp.webapi.Requests;
 import com.nppltt.trustedcolorrp.webapi.ServiceGenerator;
 import com.nppltt.trustedcolorrp.webapi.requests.GetCorrectionColorsRequest;
 import com.nppltt.trustedcolorrp.webapi.responses.GetCorrectionColorsResponse;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -240,8 +244,7 @@ public class CameraImagingView extends AppCompatActivity {
         }
     };
 
-    protected Button.OnClickListener onClickSendImage = new Button.OnClickListener()
-    {
+    protected final Button.OnClickListener onClickSendImage = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -250,11 +253,9 @@ public class CameraImagingView extends AppCompatActivity {
             ResetControls();
             imageView2.setImageBitmap(null);
 
-            try
-            {
+            try {
                 sendImageToServer(getBitMapFromFile(1400));
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 dialog.dismiss();
                 e.printStackTrace();
             }

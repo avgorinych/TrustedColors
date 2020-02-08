@@ -40,6 +40,7 @@ public class CalibrationResultView extends AppCompatActivity {
 
         UserData userData = new UserData();
         userData.rgb = StaticSettings.rgb;
+        userData.calibrated = true;
         saveCorrection(userData);
     }
 

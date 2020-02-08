@@ -10,4 +10,5 @@
     <string name="processIt">Обработать</string>
     <string name="makeFoto">Сделать фото</string>
     <string name="nowBegin">Приступить</string>
+    <string name="needScreenColorCalibration">Сначала нужно откалибровать цветопередачу для экрана.</string>
 </resources>

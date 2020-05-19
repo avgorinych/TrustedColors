@@ -28,27 +28,21 @@ public class CameraInstructionsView extends AppCompatActivity {
 
         calibrationAllowed = false;
         UserData userData = loadCalibration();
-        if (userData != null)
-        {
+        if (userData != null) {
             calibrationAllowed = userData.calibrated;
         }
     }
 
-    private UserData loadCalibration()
-    {
-        try
-        {
+    private UserData loadCalibration() {
+        try {
             return new FileManager().loadData(this, UserData.class, StaticSettings.savedDataName);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             return null;
         }
     }
 
-    private void OpenCalibrationView()
-    {
+    private void OpenCalibrationView() {
         Intent intent = new Intent(CameraInstructionsView.this, CalibrationInstructionsView.class);
         startActivity(intent);
     }
@@ -61,9 +55,7 @@ public class CameraInstructionsView extends AppCompatActivity {
             if (calibrationAllowed) {
                 Intent intent = new Intent(v.getContext(), CameraImagingView.class);
                 startActivityForResult(intent, -1);
-            }
-            else
-            {
+            } else {
                 Toast.makeText(CameraInstructionsView.this, getString(R.string.needScreenColorCalibration), Toast.LENGTH_LONG).show();
                 OpenCalibrationView();
             }
@@ -80,5 +72,6 @@ public class CameraInstructionsView extends AppCompatActivity {
     };
 
     @Override
-    public void onBackPressed() { }
+    public void onBackPressed() {
+    }
 }

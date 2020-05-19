@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Trusted Color</string>
     <string name="colorCorrectionTip">Фото отображается с применением Ваших настроек коррекции</string>
-    <string name="instructionsTip">Возьмите в руку карточку с цветовым шаблоном Trusted color ® Далее Вам потребуется расположить шаблон в зоне съемки. Фото будет произведено по касанию.</string>
+    <string name="instructionsTip">Возьмите в руку карточку с цветовым шаблоном Trusted color ® Далее Вам потребуется расположить шаблон в зоне съемки.</string>
     <string name="colorProbeOf">из</string>
     <string name="textNext">Далее</string>
     <string name="loadingWaiting">Загрузка, подождите…</string>
@@ -9,6 +9,11 @@
     <string name="calibrationInstructions">Возьмите в руку карточку с цветовым шаблоном Trusted color ® Далее Вам понадобится выбрать 8 цветов, которые максимально соответствуют секторам на карточке</string>
     <string name="processIt">Обработать</string>
     <string name="makeFoto">Сделать фото</string>
-    <string name="nowBegin">Приступить</string>
     <string name="needScreenColorCalibration">Сначала нужно откалибровать цветопередачу для экрана.</string>
+    <string name="hex" translatable="false">HEX:</string>
+    <string name="transparency">Прозрачность</string>
+    <string name="rrggbb" translatable="false">RRGGBB</string>
+    <string name="forRecalibrate">Для повторной калибровки текущего цвета, щёлкните по изображению карточки.</string>
+    <string name="forNextColor">Для перехода к следующему цвету, нажмите кнопку Далее.</string>
+    <string name="colorOnPanelToCard">Цвет на панели слева, должен совпадать с соответствующим цветом сектора карточки у Вас в руках.</string>
 </resources>

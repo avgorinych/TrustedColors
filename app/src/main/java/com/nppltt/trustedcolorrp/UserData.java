@@ -2,6 +2,6 @@ package com.nppltt.trustedcolorrp;
 
 public class UserData {
 
-	public int[] rgb = new int[3];
-	public boolean calibrated;
+    public int[] rgb = new int[3];
+    public boolean calibrated;
 }

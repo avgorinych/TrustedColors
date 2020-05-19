@@ -26,7 +26,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="0"
-            android:background="@drawable/vertical_gradient_grey"
+            android:background="@drawable/rounded_button_black"
             android:text="@string/textNext"
             android:textAllCaps="false" />
 
@@ -39,15 +39,15 @@
 
         <ImageView
             android:id="@+id/coloredPanel"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="2" />
 
         <ImageView
             android:id="@+id/currentColorImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             app:srcCompat="@drawable/c1" />
 
     </LinearLayout>
@@ -58,67 +58,25 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textBlue"
+            android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="50" />
-
-        <SeekBar
-            android:id="@+id/seekBarB"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="match_parent"
-            android:layout_height="80px"
-            android:background="@drawable/horizontal_gradient_blue"
-            android:max="255"
-            android:progress="50"
-            android:tag="2" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:text="@string/colorOnPanelToCard"
+            android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/textRed"
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="50" />
-
-        <SeekBar
-            android:id="@+id/seekBarR"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="match_parent"
-            android:layout_height="80px"
-            android:background="@drawable/horizontal_gradient_red"
-            android:indeterminate="false"
-            android:max="255"
-            android:progress="50"
-            android:tag="0" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:text="@string/forRecalibrate"
+            android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/textGreen"
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="50" />
-
-        <SeekBar
-            android:id="@+id/seekBarG"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="match_parent"
-            android:layout_height="80px"
-            android:background="@drawable/horizontal_gradient_green"
-            android:max="255"
-            android:progress="50"
-            android:tag="1" />
+            android:text="@string/forNextColor"
+            android:textAlignment="center" />
     </LinearLayout>
 
 </LinearLayout>

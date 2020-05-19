@@ -1,7 +1,9 @@
 package com.nppltt.trustedcolorrp.webapi;
 
 import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -21,7 +23,8 @@ public class ServiceGenerator {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
 
             @Override
-            public void log(String message) { }
+            public void log(String message) {
+            }
         }).setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

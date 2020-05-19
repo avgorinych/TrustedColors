@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ClearableEditText">
+        <attr name="clearPosition" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr name="clearDrawable" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ColorWheelView">
+        <attr name="layout_keep" format="enum">
+            <enum name="width" value="0"/>
+            <enum name="height" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <attr name="imageDialogTheme" format="reference"/>
+    
+</resources>

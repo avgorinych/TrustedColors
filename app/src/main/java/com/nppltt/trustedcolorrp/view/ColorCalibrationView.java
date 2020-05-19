@@ -1,39 +1,35 @@
 package com.nppltt.trustedcolorrp.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nppltt.trustedcolorrp.R;
+import com.nppltt.trustedcolorrp.SimpleDialog;
+import com.nppltt.trustedcolorrp.colorWheel.SimpleColorWheelDialog;
 import com.nppltt.trustedcolorrp.settings.StaticSettings;
+import com.nppltt.trustedcolorrp.utils.ColorUtils;
 
 import java.util.ArrayList;
 
-public class ColorCalibrationView extends AppCompatActivity {
-
+public class ColorCalibrationView extends AppCompatActivity implements SimpleDialog.OnDialogResultListener {
     private ArrayList<int[]> resultingRGB = new ArrayList<>();
     private int[] colors;
     private int currentColor;
     private ImageView imageColor;
-    private SeekBar seekValueR;
-    private SeekBar seekValueG;
-    private SeekBar seekValueB;
-    private Button nextButton;
     private ImageView colorPanel;
     private TextView textNumStep;
     private int colorsCount;
     private int iterationCount;
-    private TextView textRed;
-    private TextView textGreen;
-    private TextView textBlue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +40,12 @@ public class ColorCalibrationView extends AppCompatActivity {
         initAndroidColors();
 
         imageColor = findViewById(R.id.currentColorImage);
-        seekValueR = findViewById(R.id.seekBarR);
-        seekValueG = findViewById(R.id.seekBarG);
-        seekValueB = findViewById(R.id.seekBarB);
-        nextButton = findViewById(R.id.nextButton);
+        Button nextButton = findViewById(R.id.nextButton);
         colorPanel = findViewById(R.id.coloredPanel);
         textNumStep = findViewById(R.id.textViewStepNum);
-        textRed = findViewById(R.id.textRed);
-        textGreen = findViewById(R.id.textGreen);
-        textBlue = findViewById(R.id.textBlue);
 
-        seekValueR.setOnSeekBarChangeListener(seekBarChangeListener);
-        seekValueG.setOnSeekBarChangeListener(seekBarChangeListener);
-        seekValueB.setOnSeekBarChangeListener(seekBarChangeListener);
         nextButton.setOnClickListener(onClickNextButton);
+        imageColor.setOnClickListener(onClickShowPicker);
 
         iterationCount = 0;
         textNumStep.setText(String.format("1 %s %s", getString(R.string.colorProbeOf), Integer.toString(colorsCount)));
@@ -65,13 +53,32 @@ public class ColorCalibrationView extends AppCompatActivity {
         setColorToColorPicker(colors[0]);
     }
 
+    private Button.OnClickListener onClickShowPicker = new Button.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            setColorToColorPicker(colors[iterationCount]);
+        }
+    };
+
+    private void setResultingImageColor(Bitmap bitmap) {
+        ImageView image = colorPanel;
+        image.setImageBitmap(bitmap);
+    }
+
+    private void setColorToColorPicker(int color) {
+
+        SimpleColorWheelDialog.build().hideHexInput(true).color(color, true).alpha(false).show(this);
+    }
+
     private Button.OnClickListener onClickNextButton = new Button.OnClickListener() {
 
         @Override
         public void onClick(View v) {
 
-            if (iterationCount < colorsCount)
-            {   int[] rgbColor = new int[3];
+            if (iterationCount < colorsCount) {
+                int[] rgbColor = new int[3];
                 rgbColor[StaticSettings.RED] = Color.red(currentColor);
                 rgbColor[StaticSettings.GREEN] = Color.green(currentColor);
                 rgbColor[StaticSettings.BLUE] = Color.blue(currentColor);
@@ -85,79 +92,19 @@ public class ColorCalibrationView extends AppCompatActivity {
                 setColorToColorPicker(colors[iterationCount]);
             }
 
-            if (iterationCount >= colorsCount)
-            {
+            if (iterationCount >= colorsCount) {
                 onCorrectionFinish();
-                return;
             }
         }
     };
-
-    private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            String tag = (String) seekBar.getTag();
-
-            if (tag.equals("0"))
-            {
-                textRed.setText(Integer.toString(seekValueR.getProgress()));
-            }
-            if (tag.equals("1"))
-            {
-                textGreen.setText(Integer.toString(seekValueG.getProgress()));
-            }
-            if (tag.equals("2"))
-            {
-                textBlue.setText(Integer.toString(seekValueB.getProgress()));
-            }
-
-            setColorPanel();
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-
-        }
-    };
-
-    private void setColorPanel() {
-
-        int colorR = seekValueR.getProgress();
-        int colorG = seekValueG.getProgress();
-        int colorB = seekValueB.getProgress();
-
-        currentColor = Color.rgb(colorR, colorG, colorB);
-        colorPanel.setBackgroundColor(Color.argb(255, colorR, colorG, colorB));
-    }
 
     private void initAndroidColors() {
 
         colors = new int[StaticSettings.rawHexColors.length];
-        for(int i = 0; i < colors.length; i++) {
+        for (int i = 0; i < colors.length; i++) {
             colors[i] = Color.parseColor(StaticSettings.rawHexColors[i]);
         }
         colorsCount = colors.length;
-    }
-
-    private void setColorToColorPicker(int color) {
-
-        int colorR = Color.red(color);
-        int colorG = Color.green(color);
-        int colorB = Color.blue(color);
-
-        seekValueR.setProgress(colorR);
-        seekValueG.setProgress(colorG);
-        seekValueB.setProgress(colorB);
-        colorPanel.setBackgroundColor(color);
-
-        currentColor = Color.rgb(colorR, colorG, colorB);
     }
 
     private void setColorImage(int number) {
@@ -166,8 +113,28 @@ public class ColorCalibrationView extends AppCompatActivity {
         imageColor.setImageDrawable(drawable);
     }
 
-    private void onCorrectionFinish()
-    {
+    @Override
+    public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
+
+        if (which == BUTTON_POSITIVE) {
+            switch (dialogTag) {
+
+                case SimpleColorWheelDialog.TAG: /** {@link MainActivity#showHsvWheel(View)} **/
+
+                    currentColor = extras.getInt(SimpleColorWheelDialog.COLOR);
+
+                    int widthPanel = colorPanel.getMeasuredWidth();
+                    int heightPanel = colorPanel.getMeasuredHeight();
+
+                    setResultingImageColor(ColorUtils.createBitmapFromColor(currentColor, widthPanel, heightPanel));
+
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private void onCorrectionFinish() {
         int[] averageRgbColor = new int[3];
         for (int i = 0; i < resultingRGB.size(); i++) {
             averageRgbColor[StaticSettings.RED] += resultingRGB.get(i)[StaticSettings.RED] - Color.red(colors[i]);

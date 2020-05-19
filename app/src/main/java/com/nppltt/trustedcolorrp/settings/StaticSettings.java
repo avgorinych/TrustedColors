@@ -10,7 +10,7 @@ public abstract class StaticSettings {
 
     public static final String savedDataName = "trustedColorConfig";
 
-    public static final int[] imagesCorrection = new int[] {
+    public static final int[] imagesCorrection = new int[]{
 
             R.drawable.c1,
             R.drawable.c2,
@@ -22,7 +22,7 @@ public abstract class StaticSettings {
             R.drawable.c8
     };
 
-    public static final String[] rawHexColors = new String[] {
+    public static final String[] rawHexColors = new String[]{
 
             "#00ff05", //0
             "#ff00fe", //1

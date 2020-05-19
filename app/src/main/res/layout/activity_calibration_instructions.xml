@@ -20,7 +20,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/rounded_button"
             android:keepScreenOn="false"
-            android:text="@string/nowBegin"
+            android:text="@string/textNext"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/white"

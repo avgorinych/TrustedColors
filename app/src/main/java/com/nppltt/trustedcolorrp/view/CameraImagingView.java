@@ -22,6 +22,7 @@ import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 
 import com.google.gson.Gson;
+import com.nppltt.trustedcolorrp.BuildConfig;
 import com.nppltt.trustedcolorrp.R;
 import com.nppltt.trustedcolorrp.UserData;
 import com.nppltt.trustedcolorrp.settings.StaticSettings;
@@ -80,8 +81,7 @@ public class CameraImagingView extends AppCompatActivity {
         sendButton.setVisibility(View.GONE);
 
         userData = loadCalibration();
-        if (userData == null)
-        {
+        if (userData == null) {
             userData = new UserData();
             userData.rgb = new int[3];
             for (int i = 0; i < 3; i++) {
@@ -108,53 +108,43 @@ public class CameraImagingView extends AppCompatActivity {
                     toast.show();
                 }
                 if (photoFile != null) {
-                    Uri photoURI = FileProvider.getUriForFile(this, "com.nppltt.trustedcolorrp.android.fileprovider", photoFile);
+                    Uri photoURI = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".android.fileprovider", photoFile);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
                 }
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Toast.makeText(CameraImagingView.this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     private File createImageFile() throws IOException {
-        try
-        {
+        try {
             String timeStamp = new SimpleDateFormat("MMdd_HHmm").format(new Date());
             String imageFileName = "TrustedColor_" + timeStamp + "_";
             File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            if (!storageDir.exists()) {
+            if (storageDir != null && !storageDir.exists()) {
                 storageDir.mkdirs();
             }
-            File image = File.createTempFile(imageFileName,".jpg", storageDir);
+            File image = File.createTempFile(imageFileName, ".jpg", storageDir);
             currentPhotoPath = image.getAbsolutePath();
             return image;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Toast.makeText(CameraImagingView.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
             return null;
         }
     }
 
-    private UserData loadCalibration()
-    {
-        try
-        {
+    private UserData loadCalibration() {
+        try {
             return new FileManager().loadData(this, UserData.class, StaticSettings.savedDataName);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             return null;
         }
     }
 
-    private void ResetControls()
-    {
+    private void ResetControls() {
         TextViewR.setText("");
         TextViewG.setText("");
         TextViewB.setText("");
@@ -176,7 +166,7 @@ public class CameraImagingView extends AppCompatActivity {
                 ExifInterface.ORIENTATION_UNDEFINED);
 
         Bitmap rotatedBitmap = null;
-        switch(orientation) {
+        switch (orientation) {
 
             case ExifInterface.ORIENTATION_ROTATE_90:
                 rotatedBitmap = rotateImage(image, 90);
@@ -202,21 +192,20 @@ public class CameraImagingView extends AppCompatActivity {
         int width = rotatedBitmap.getWidth();
         int height = rotatedBitmap.getHeight();
 
-        float bitmapRatio = (float)width / (float)height;
+        float bitmapRatio = (float) width / (float) height;
         if (maxSize > 0) {
             if (bitmapRatio > 1) {
                 width = maxSize;
-                height = (int)(width / bitmapRatio);
+                height = (int) (width / bitmapRatio);
             } else {
                 height = maxSize;
-                width = (int)(height * bitmapRatio);
+                width = (int) (height * bitmapRatio);
             }
         }
         return Bitmap.createScaledBitmap(rotatedBitmap, width, height, true);
     }
 
-    public static Bitmap rotateImage(Bitmap source, float angle)
-    {
+    public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
@@ -224,16 +213,14 @@ public class CameraImagingView extends AppCompatActivity {
 
     public static String encodeToBase64(Bitmap image) {
 
-        Bitmap immagex = image;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-        return imageEncoded;
+        Bitmap immageX = image;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        immageX.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] b = stream.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
-    protected Button.OnClickListener onClickTakeImage = new Button.OnClickListener()
-    {
+    protected Button.OnClickListener onClickTakeImage = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -275,21 +262,19 @@ public class CameraImagingView extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                if (response.isSuccessful())
-                {
-                    try
-                    {
+                if (response.isSuccessful()) {
+                    try {
                         String resp_ = response.body().string();
                         Gson gson = new Gson();
-                        GetCorrectionColorsResponse fromjson = gson.fromJson(resp_, GetCorrectionColorsResponse.class);
-                        if (fromjson.error == null || fromjson.error.isEmpty())
-                            fromjson.error = "OK";
+                        GetCorrectionColorsResponse fromJson = gson.fromJson(resp_, GetCorrectionColorsResponse.class);
+                        if (fromJson.error == null || fromJson.error.isEmpty())
+                            fromJson.error = "OK";
 
-                        Log.i("Response result: ", fromjson.error);
-                        Log.i("Response score: ", Integer.toString(fromjson.scoreCalibrated));
-                        Log.i("Response time: ", Integer.toString(fromjson.timeCalibrated));
+                        Log.i("Response result: ", fromJson.error);
+                        Log.i("Response score: ", Integer.toString(fromJson.scoreCalibrated));
+                        Log.i("Response time: ", Integer.toString(fromJson.timeCalibrated));
 
-                        Toast.makeText(CameraImagingView.this, fromjson.error, Toast.LENGTH_LONG).show();
+                        Toast.makeText(CameraImagingView.this, fromJson.error, Toast.LENGTH_LONG).show();
 
                         int width = imageView2.getWidth();
                         int height = imageView2.getHeight();
@@ -297,11 +282,13 @@ public class CameraImagingView extends AppCompatActivity {
                         if (height > width)
                             maxsize = height;
 
-                        int amendmentR = (int)fromjson.rgb.red + userData.rgb[StaticSettings.RED];
-                        int amendmentG = (int)fromjson.rgb.green + userData.rgb[StaticSettings.GREEN];
-                        int amendmentB = (int)fromjson.rgb.blue + userData.rgb[StaticSettings.BLUE];
+                        int amendmentR = (int) fromJson.rgb.red + userData.rgb[StaticSettings.RED];
+                        int amendmentG = (int) fromJson.rgb.green + userData.rgb[StaticSettings.GREEN];
+                        int amendmentB = (int) fromJson.rgb.blue + userData.rgb[StaticSettings.BLUE];
 
                         Bitmap correctedBitmap = ImageUtils.CorrectImageColor(getBitMapFromFile(maxsize), amendmentR, amendmentG, amendmentB, true);
+                        dialog.dismiss();
+
                         imageView2.setImageBitmap(correctedBitmap);
 
                         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -309,26 +296,22 @@ public class CameraImagingView extends AppCompatActivity {
                             storageDir.mkdirs();
                         }
                         String timeStamp = new SimpleDateFormat("MMdd_HHmm").format(new Date());
-                        String imageFileName = "Corrected_" + timeStamp + "_";
-                        File image = File.createTempFile(imageFileName,".jpeg", storageDir);
+                        String imageFileName = "Corrected_" + timeStamp;
+                        File image = File.createTempFile(imageFileName, ".jpeg", storageDir);
                         FileOutputStream fos = new FileOutputStream(image);
                         correctedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 
                         galleryAddPic(image);
-                        writeExif(image, (int)fromjson.rgb.red, (int)fromjson.rgb.green, (int)fromjson.rgb.blue);
+                        writeExif(image, (int) fromJson.rgb.red, (int) fromJson.rgb.green, (int) fromJson.rgb.blue);
 
-                        TextViewR.setText(String.format("R: %s; ", String.valueOf(fromjson.rgb.red)));
-                        TextViewG.setText(String.format("G: %s; ", String.valueOf(fromjson.rgb.green)));
-                        TextViewB.setText(String.format("B: %s; ", String.valueOf(fromjson.rgb.blue)));
-
-                        dialog.dismiss();
-                    }
-                    catch (Exception ex) {
+                        TextViewR.setText(String.format("R: %s; ", String.valueOf(fromJson.rgb.red)));
+                        TextViewG.setText(String.format("G: %s; ", String.valueOf(fromJson.rgb.green)));
+                        TextViewB.setText(String.format("B: %s; ", String.valueOf(fromJson.rgb.blue)));
+                    } catch (Exception ex) {
                         dialog.dismiss();
                         Toast.makeText(CameraImagingView.this, ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }
-                else {
+                } else {
                     dialog.dismiss();
                     Toast.makeText(CameraImagingView.this, response.message(), Toast.LENGTH_LONG).show();
                     Log.i("netClient", response.message());

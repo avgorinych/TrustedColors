@@ -1,6 +1,7 @@
 package com.nppltt.trustedcolorrp.webapi;
 
 import com.nppltt.trustedcolorrp.webapi.requests.GetCorrectionColorsRequest;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;

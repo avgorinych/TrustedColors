@@ -13,12 +13,15 @@ import android.widget.TableLayout;
 import android.widget.TableLayout.LayoutParams;
 import android.widget.TableRow;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.nppltt.trustedcolorrp.R;
 import com.nppltt.trustedcolorrp.UserData;
 import com.nppltt.trustedcolorrp.settings.StaticSettings;
 import com.nppltt.trustedcolorrp.utils.ColorUtils;
 import com.nppltt.trustedcolorrp.utils.FileManager;
+
 import java.io.IOException;
 
 public class CalibrationResultView extends AppCompatActivity {
@@ -44,8 +47,7 @@ public class CalibrationResultView extends AppCompatActivity {
         saveCorrection(userData);
     }
 
-    protected Button.OnClickListener onClickOK = new Button.OnClickListener()
-    {
+    protected Button.OnClickListener onClickOK = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -53,8 +55,7 @@ public class CalibrationResultView extends AppCompatActivity {
         }
     };
 
-    private void BackToMenu()
-    {
+    private void BackToMenu() {
         Intent intent = new Intent(CalibrationResultView.this, CameraInstructionsView.class);
         startActivity(intent);
     }
@@ -65,8 +66,7 @@ public class CalibrationResultView extends AppCompatActivity {
         BackToMenu();
     }
 
-    private void fillColorsTable()
-    {
+    private void fillColorsTable() {
         UserData userData = new UserData();
         userData.rgb = StaticSettings.rgb;
 
@@ -92,8 +92,7 @@ public class CalibrationResultView extends AppCompatActivity {
         tableLayout.addView(tableRow, 0);
     }
 
-    private int correctColorWithAdjustments(int color, UserData userData)
-    {
+    private int correctColorWithAdjustments(int color, UserData userData) {
         int colorR = ColorUtils.SafeColorCorrection(Color.red(color), userData.rgb[StaticSettings.RED], true);
         int colorG = ColorUtils.SafeColorCorrection(Color.green(color), userData.rgb[StaticSettings.GREEN], true);
         int colorB = ColorUtils.SafeColorCorrection(Color.blue(color), userData.rgb[StaticSettings.BLUE], true);
